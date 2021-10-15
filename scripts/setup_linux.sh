@@ -1,10 +1,7 @@
 #!/bin/bash
 # Make sure that conda is available
 
-hash conda 2>/dev/null || {
-    echo "Please install anaconda before continuing. You can download it at https://www.continuum.io/downloads. Please use the Python 2.7 installer."
-    exit 0
-}
+
 
 echo "Installing system dependencies"
 echo "You will probably be asked for your sudo password."
