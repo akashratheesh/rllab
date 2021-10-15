@@ -5,13 +5,12 @@
 
 echo "Installing system dependencies"
 echo "You will probably be asked for your sudo password."
-sudo apt-get update
-sudo apt-get install -y python-pip python-dev swig cmake build-essential
-sudo apt-get build-dep -y python-pygame
-sudo apt-get build-dep -y python-scipy
+apt-get update
+apt-get install -y python-pip python-dev swig cmake build-essential
+apt-get build-dep -y python-pygame
+apt-get build-dep -y python-scipy
 
-# Make sure that we're under the directory of the project
-cd "$(dirname "$0")/.."
+
 
 echo "Creating conda environment..."
 conda env create -f environment.yml
