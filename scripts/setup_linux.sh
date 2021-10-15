@@ -10,7 +10,8 @@ apt-get install -y python-pip python-dev swig cmake build-essential
 apt-get build-dep -y python-pygame
 apt-get build-dep -y python-scipy
 
-
+# Make sure that we're under the directory of the project
+cd "$(dirname "$0")/.."
 
 echo "Creating conda environment..."
 conda env create -f environment.yml
