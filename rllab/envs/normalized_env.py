@@ -30,11 +30,11 @@ class NormalizedEnv(ProxyEnv, Serializable):
         self._reward_mean = 0.
         self._reward_var = 1.
         #anusha added these
-        self.qpos_dim = env.qpos_dim
-        self.qvel_dim = env.qvel_dim
-        self.ctrl_dim = env.ctrl_dim
-        self.qacc_dim = env.qacc_dim
-        self.model=env.model
+        #self.qpos_dim = env.qpos_dim
+        #self.qvel_dim = env.qvel_dim
+        #self.ctrl_dim = env.ctrl_dim
+        #self.qacc_dim = env.qacc_dim
+        #self.model=env.model
 
     def _update_obs_estimate(self, obs):
         flat_obs = self.wrapped_env.observation_space.flatten(obs)
