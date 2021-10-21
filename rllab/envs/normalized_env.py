@@ -55,7 +55,7 @@ class NormalizedEnv(ProxyEnv, Serializable):
         return reward / (np.sqrt(self._reward_var) + 1e-8)
 
     def reset(self, init_state=None, evaluating=False, returnStartState=False, isSwimmer=False, need_diff_headings=True):
-        ret = self._wrapped_env.reset(init_state, evaluating, returnStartState, isSwimmer, need_diff_headings) #######edited by anusha
+        ret = self._wrapped_env.reset() #######edited by anusha
         if self._normalize_obs:
             return self._apply_normalize_obs(ret)
         else:
@@ -63,7 +63,7 @@ class NormalizedEnv(ProxyEnv, Serializable):
 
     def get_my_sim_state(self): ####### added by anusha
         ret = self._wrapped_env.get_my_sim_state()
-        return ret
+        return self.__getstate__()
 
     def __getstate__(self):
         d = Serializable.__getstate__(self)
