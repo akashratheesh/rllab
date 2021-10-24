@@ -30,11 +30,11 @@ class NormalizedEnv(ProxyEnv, Serializable):
         self._reward_mean = 0.
         self._reward_var = 1.
         #anusha added these
-        self.qpos_dim = env.qpos_dim
-        self.qvel_dim = env.qvel_dim
-        self.ctrl_dim = env.ctrl_dim
-        self.qacc_dim = env.qacc_dim
-        self.model=env.model
+        #self.qpos_dim = env.qpos_dim
+        #self.qvel_dim = env.qvel_dim
+        #self.ctrl_dim = env.ctrl_dim
+        #self.qacc_dim = env.qacc_dim
+        #self.model=env.model
 
     def _update_obs_estimate(self, obs):
         flat_obs = self.wrapped_env.observation_space.flatten(obs)
@@ -55,7 +55,7 @@ class NormalizedEnv(ProxyEnv, Serializable):
         return reward / (np.sqrt(self._reward_var) + 1e-8)
 
     def reset(self, init_state=None, evaluating=False, returnStartState=False, isSwimmer=False, need_diff_headings=True):
-        ret = self._wrapped_env.reset(init_state, evaluating, returnStartState, isSwimmer, need_diff_headings) #######edited by anusha
+        ret = self._wrapped_env.reset() #######edited by anusha
         if self._normalize_obs:
             return self._apply_normalize_obs(ret)
         else:
@@ -63,7 +63,7 @@ class NormalizedEnv(ProxyEnv, Serializable):
 
     def get_my_sim_state(self): ####### added by anusha
         ret = self._wrapped_env.get_my_sim_state()
-        return ret
+        return self.__getstate__()
 
     def __getstate__(self):
         d = Serializable.__getstate__(self)
@@ -93,7 +93,7 @@ class NormalizedEnv(ProxyEnv, Serializable):
             scaled_action = np.clip(scaled_action, lb, ub)
         else:
             scaled_action = action
-        wrapped_step = self._wrapped_env.step(scaled_action, collectingInitialData)
+        wrapped_step = self._wrapped_env.step(scaled_action)
         next_obs, reward, done, info = wrapped_step
         if self._normalize_obs:
             next_obs = self._apply_normalize_obs(next_obs)
