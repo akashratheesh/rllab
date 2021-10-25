@@ -115,7 +115,7 @@ class BatchPolopt(RLAlgorithm):
     def train(self):
         self.start_worker()
         self.init_opt()
-        input("block")
+        
         for itr in range(self.current_itr, self.n_itr):
             with logger.prefix('itr #%d | ' % itr):
 
@@ -129,6 +129,7 @@ class BatchPolopt(RLAlgorithm):
                     paths = cPickle.load(f)
                     f.close()
                 else:
+                    input("block")
                     paths = self.sampler.obtain_samples(itr)
 
                 samples_data = self.sampler.process_samples(itr, paths)
