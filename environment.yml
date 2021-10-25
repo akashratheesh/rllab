@@ -48,3 +48,4 @@ dependencies:
         - jupyter
         - progressbar2
         - chainer
+        - pybullet==1.7
