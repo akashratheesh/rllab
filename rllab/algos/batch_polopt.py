@@ -129,6 +129,7 @@ class BatchPolopt(RLAlgorithm):
                     paths = cPickle.load(f)
                     f.close()
                 else:
+                    input("pre-block")
                     paths = self.sampler.obtain_samples(itr)
                     print(paths)
                     input("block")
