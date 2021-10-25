@@ -129,11 +129,10 @@ class BatchPolopt(RLAlgorithm):
                     paths = cPickle.load(f)
                     f.close()
                 else:
-                    input("block")
                     paths = self.sampler.obtain_samples(itr)
 
                 samples_data = self.sampler.process_samples(itr, paths)
-
+                input("block1")
                 '''
                 NOW:
                 paths = list of 20 dicts, where each has --- actions, advantages, agent_infos, env_infos, observations, returns, rewards
@@ -141,6 +140,7 @@ class BatchPolopt(RLAlgorithm):
                 '''
 
                 self.log_diagnostics(paths)
+                input("block2")
                 self.optimize_policy(itr, samples_data)
                 logger.log("saving snapshot...")
                 params = self.get_itr_snapshot(itr, samples_data)
