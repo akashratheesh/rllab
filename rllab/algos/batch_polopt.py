@@ -115,6 +115,7 @@ class BatchPolopt(RLAlgorithm):
     def train(self):
         self.start_worker()
         self.init_opt()
+        input("block")
         for itr in range(self.current_itr, self.n_itr):
             with logger.prefix('itr #%d | ' % itr):
 
