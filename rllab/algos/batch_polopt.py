@@ -20,16 +20,13 @@ class BatchSampler(BaseSampler):
         parallel_sampler.terminate_task(scope=self.algo.scope)
 
     def obtain_samples(self, itr):
-        print(self.algo)
         cur_params = self.algo.policy.get_param_values()
-        print("cparam: ",cur_params)
         paths = parallel_sampler.sample_paths(
             policy_params=cur_params,
             max_samples=self.algo.batch_size,
             max_path_length=self.algo.max_path_length,
             scope=self.algo.scope,
         )
-        print("cpath: ",paths)
         if self.algo.whole_paths:
             return paths
         else:
