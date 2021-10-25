@@ -49,3 +49,5 @@ dependencies:
         - progressbar2
         - chainer
         - pybullet==1.7
+        - seaborn
+        - cloudpickle
