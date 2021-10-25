@@ -131,6 +131,7 @@ class BatchPolopt(RLAlgorithm):
                 else:
                     paths = self.sampler.obtain_samples(itr)
                     print(paths)
+                    input("block")
 
                 
                 samples_data = self.sampler.process_samples(itr, paths)
