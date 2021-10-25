@@ -20,13 +20,16 @@ class BatchSampler(BaseSampler):
         parallel_sampler.terminate_task(scope=self.algo.scope)
 
     def obtain_samples(self, itr):
+        print(self.algo)
         cur_params = self.algo.policy.get_param_values()
+        print("cparam: ",cur_params)
         paths = parallel_sampler.sample_paths(
             policy_params=cur_params,
             max_samples=self.algo.batch_size,
             max_path_length=self.algo.max_path_length,
             scope=self.algo.scope,
         )
+        print("cpath: ",paths)
         if self.algo.whole_paths:
             return paths
         else:
@@ -129,14 +132,12 @@ class BatchPolopt(RLAlgorithm):
                     paths = cPickle.load(f)
                     f.close()
                 else:
-                    input("pre-block")
                     paths = self.sampler.obtain_samples(itr)
                     print(paths)
                     input("block")
 
                 
                 samples_data = self.sampler.process_samples(itr, paths)
-                input("block1")
                 '''
                 NOW:
                 paths = list of 20 dicts, where each has --- actions, advantages, agent_infos, env_infos, observations, returns, rewards
@@ -144,7 +145,6 @@ class BatchPolopt(RLAlgorithm):
                 '''
 
                 self.log_diagnostics(paths)
-                input("block2")
                 self.optimize_policy(itr, samples_data)
                 logger.log("saving snapshot...")
                 params = self.get_itr_snapshot(itr, samples_data)
